@@ -146,7 +146,15 @@ public class Cart extends AppCompatActivity {
 
         int total = 0;
         for (Order order:cart)
-             total+=(Integer.parseInt(order.getPrice()))*(Integer.parseInt(order.getQuantity()));
+            try {
+                total += (Double.parseDouble(order.getPrice().replace(",",""))) * (Integer.parseInt(order.getQuantity().replace(",","")));
+
+            }catch (NumberFormatException e)
+            {
+                e.printStackTrace();
+                Toast.makeText(this, "NumberFormatException", Toast.LENGTH_SHORT).show();
+            }
+
         Locale locale = new Locale("en","US");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
 
