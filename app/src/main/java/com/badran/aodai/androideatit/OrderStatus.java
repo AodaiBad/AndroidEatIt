@@ -37,7 +37,9 @@ public class OrderStatus extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         if (getIntent() == null)
-        loadOrders(Common.currentUser.getPhone());
+            loadOrders(Common.currentUser.getPhone());
+        else if(getIntent().getStringExtra("userPhone") == null || getIntent().getStringExtra("userPhone").isEmpty())
+            loadOrders(Common.currentUser.getPhone());
         else
             loadOrders(getIntent().getStringExtra("userPhone"));
 
@@ -54,7 +56,7 @@ public class OrderStatus extends AppCompatActivity {
                 Request.class,
                 R.layout.order_layout,
                 OrderViewHolder.class,
-                requests.orderByChild("phone")
+                requests.orderByChild("userPhone")
                 .equalTo(phone)
         ) {
             @Override
